@@ -1,8 +1,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import pkg from "@mistralai/mistralai";   // FIXED
-const { MistralClient } = pkg;            // FIXED
+import Mistral from "@mistralai/mistralai";
 
 dotenv.config();
 
@@ -10,7 +9,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const client = new MistralClient(process.env.MISTRAL_API_KEY);
+
+const client = new Mistral(process.env.MISTRAL_API_KEY);
 
 app.post("/chat", async (req, res) => {
   try {
@@ -23,7 +23,9 @@ app.post("/chat", async (req, res) => {
       ]
     });
 
-    res.json({ reply: response.choices[0].message.content });
+    res.json({
+      reply: response.choices[0].message.content
+    });
 
   } catch (err) {
     console.error("API Error:", err);
