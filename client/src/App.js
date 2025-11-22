@@ -15,21 +15,19 @@ export default function App() {
     setLoading(true);
 
     try {
-      const res = await fetch("https://stack-proj-10.onrender.com/ask", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt: input }),
-      });
+  const res = await fetch("https://stack-proj-10.onrender.com/chat", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ prompt: input }),
+  });
 
-      const data = await res.json();
-      const botMsg = { role: "bot", text: data.reply };
-      setMessages((prev) => [...prev, botMsg]);
-    } catch (err) {
-      setMessages((prev) => [
-        ...prev,
-        { role: "bot", text: "Network error!" },
-      ]);
-    }
+  const data = await res.json();
+  const botMsg = { role: "bot", text: data.reply };
+  setMessages((prev) => [...prev, botMsg]);
+} catch (err) {
+  setMessages((prev) => [...prev, { role: "bot", text: "Network error!" }]);
+}
+
 
     setInput("");
     setLoading(false);
@@ -47,7 +45,7 @@ export default function App() {
     <div className="app-wrapper">
       <div className="top-bar">LUNAR</div>
 
-      {/* Center welcome */}
+      
       {messages.length === 0 && !loading ? (
         <div className="center-screen">
           <div className="welcome-icon">💬</div>
