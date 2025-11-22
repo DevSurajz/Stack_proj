@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import Mistral from "@mistralai/mistralai";
+import MistralClient from "@mistralai/mistralai";
 
 dotenv.config();
 
@@ -9,15 +9,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-
-const client = new Mistral(process.env.MISTRAL_API_KEY);
+const client = new MistralClient(process.env.MISTRAL_API_KEY);
 
 app.post("/chat", async (req, res) => {
   try {
-    const prompt = req.body.prompt || "";
+    const prompt = req.body.prompt;
 
-    const response = await client.chat.complete({
-      model: "mistral-large-latest",
+    const response = await client.chat({
+      model: "mistral-tiny",
       messages: [
         { role: "user", content: prompt }
       ]
@@ -27,13 +26,12 @@ app.post("/chat", async (req, res) => {
       reply: response.choices[0].message.content
     });
 
-  } catch (err) {
-    console.error("API Error:", err);
-    res.json({ reply: "Server error" });
+  } catch (e) {
+    console.error(e);
+    res.json({ reply: "Error" });
   }
 });
 
-const PORT = process.env.PORT || 4000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+app.listen(process.env.PORT || 4000, () => {
+  console.log("Server Running");
 });
