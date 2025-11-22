@@ -3,7 +3,6 @@
     "@mistralai/mistralai": "^1.10.0"
   },
   "scripts": {
-  "start": "node server.js"
+    "start": "node server.js"
+  }
 }
-}
-
