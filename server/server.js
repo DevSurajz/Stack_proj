@@ -1,7 +1,8 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import { MistralClient } from "@mistralai/mistralai";
+import pkg from "@mistralai/mistralai";   // FIXED
+const { MistralClient } = pkg;            // FIXED
 
 dotenv.config();
 
@@ -30,10 +31,7 @@ app.post("/chat", async (req, res) => {
   }
 });
 
-
 const PORT = process.env.PORT || 4000;
-
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-
