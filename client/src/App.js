@@ -15,7 +15,7 @@ export default function App() {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:4000/chat", {
+      const res = await fetch("https://stack-proj-10.onrender.com/ask", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ prompt: input }),
@@ -25,7 +25,10 @@ export default function App() {
       const botMsg = { role: "bot", text: data.reply };
       setMessages((prev) => [...prev, botMsg]);
     } catch (err) {
-      setMessages((prev) => [...prev, { role: "bot", text: "Network error!" }]);
+      setMessages((prev) => [
+        ...prev,
+        { role: "bot", text: "Network error!" },
+      ]);
     }
 
     setInput("");
@@ -79,4 +82,3 @@ export default function App() {
     </div>
   );
 }
-
