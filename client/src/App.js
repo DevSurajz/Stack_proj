@@ -15,7 +15,7 @@ export default function App() {
     setLoading(true);
 
     try {
-  const res = await fetch("https://stack-proj-10.onrender.com/chat", {
+  const res = await fetch("https://stack-proj-11.onrender.com/chat", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ prompt: input }),
