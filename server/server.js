@@ -9,10 +9,11 @@ const app = express();
 
 
 app.use(cors({
-  origin: ['https://lunarso.vercel.app/', 'http://localhost:5173'],
+  origin: ['https://lunarso.vercel.app', 'http://localhost:5173'],
   methods: ['GET', 'POST'],
   credentials: true
 }));
+
 
 app.use(express.json());
 
